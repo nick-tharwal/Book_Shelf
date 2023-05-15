@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="'utf-8">
+        <meta name="viewport" content="width=device-width , initial-scale = 1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+JQLZz8XhGzTB+gRximyX9J2rU6JhU6" crossorigin="anonymous">
+    
+        <link href="https://unpkg.com/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+        <title>{% block title %}{% endblock  %} | Book_Shelf</title>
+    </head>
+    <body class="bg-black text-white font-sans">
+        <nav class="fixed top-0 left-0 w-full py-4 bg-black bg-opacity-75">
+            <div class="container mx-auto flex flex-wrap justify-between items-center">
+                <a href="/" class="flex items-center">
+                    {% comment %} <img class="h-8 mr-2" src=".images/BS.jpg" alt="logo"> {% endcomment %}
+                    <h1 class="text-2xl font-bold">Book_Shelf</h1>
+                </a>
+                <button class="flex items-center block px-3 py-2 border rounded text-white border-white hover:text-gray-500 hover:border-gray-500 appearance-none focus:outline-none lg:hidden" id="menu-toggle">
+                    <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0zm0 6h20v2H0zm0 6h20v2H0z"/></svg>
+                </button>
+                <ul class="hidden lg:flex lg:space-x-6 lg:ml-auto" id="menu">
+                    <li><a href="{% url 'item:items' %}" class="text-lg hover:text-gray-500">Browse</a></li>
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'item:new' %}" class="text-lg hover:text-gray-500">New-Item</a></li>
+                    <li><a href="{% url 'conversation:inbox' %}" class="px-6 py-3 text-lg font-semibold bg-red-600 rounded-xl hover:bg-red-800">Inbox</a></li>
+                    <li><a href="{% url 'dashboard:index' %}" class="px-6 py-3 text-lg font-semibold bg-red-600 rounded-xl hover:bg-red-800">DashBoard</a></li>
+                    <li><a href="{% url 'core:logout' %}" class="px-6 py-3 text-lg font-semibold bg-red-600 rounded-xl hover:bg-red-800">Log-Out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'core:signup' %}" class="px-6 py-3 text-lg font-semibold bg-gray-600 rounded-xl hover:bg-gray-800">Signup</a></li>
+                    <li><a href="{% url 'core:login' %}" class="px-6 py-3 text-lg font-semibold bg-red-600 rounded-xl hover:bg-red-800">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+          
+        <div class="px-6 py-6">
+            <br>
+            <br>
+             {% block content %}
+              {% endblock %}
+        </div>
+        <footer class="py-12 px-6 bg-black">
+            <div class="flex justify-between items-center mb-12">
+                <a href="/" class="text-3xl font-bold">Book_Shelf</a>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-500">FAQ</a>
+                    <a href="#" class="hover:text-gray-500">Help Center</a>
+                    <a href="#" class="hover:text-gray-500">Account</a>
+                </div>
+            </div>
+            <div class="flex justify-between items-center">
+                <p class="text-lg">© 2023 Book_Shelf, Inc.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-gray-500">Terms of Service</a>
+                    <a href="#" class="hover:text-gray-500">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-500">Cookie Preferences</a>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
